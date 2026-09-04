@@ -1,0 +1,42 @@
+---
+title: "What I Built"
+date: "YYYY-MM-01"
+draft: true
+---
+
+<!-- date drives sort order and the month/year shown on the landing page. Day is ignored. -->
+<!-- Remove draft: true when ready to publish. -->
+
+*Stack: ...*
+
+## Summary
+
+What was shipped, the before state, and the result. A few sentences.
+
+## Why I built this
+
+The friction that made this worth the time.
+
+## What I built
+
+The thing itself, and how it works.
+
+## Decisions & tradeoffs
+
+Chose X over Y because Z. One per fork in the road.
+
+## Mistakes & weak points
+
+What broke, what was wrong at the start, the ugliest part of the current version.
+
+## Results
+
+Evidence, or the leading indicator if it's early. Numbers over adjectives.
+
+## Top Learnings
+
+What's reusable, and what past-me would have wanted to know.
+
+## What's next
+
+What this opens up.

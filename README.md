@@ -1,25 +1,29 @@
-# Analytics Gym
+# Build Journal
 
-A personal, open reference: mental models I find useful, and lessons from building and shipping.
+Learning, Decision, Analytics Tools.
 
-Kept in the open so I can point others to it and so past-me keeps teaching present-me. Built with Quarto, deployed on GitHub Pages.
+Notes on the learning, decision, and analytics tools I build: what I shipped, the forks in the road, what broke, and what it opened up. The audience is future me. Kept public so the work is reusable, not just describable.
+
+Built with Quarto, deployed to GitHub Pages.
 
 ## Live Site
 
-[analyticsgym.github.io](https://analyticsgym.github.io)
+[bmooregh.github.io](https://bmooregh.github.io)
 
-## Sections
+## Structure
 
-- **Mental Models** — frameworks I reach for when thinking about growth, experimentation, and analytical problems
-- **Ship Notes** — what I learned from things I actually built, tested, or shipped
+- `index.qmd` — the landing page, listing every post by month/year, newest first
+- `posts/` — one `.qmd` per journal entry, plus its images
+- `_includes/header.html` — the site header, rendered on the landing page only
+- `styles.css` — all visual styling, single source of truth
+- `_templates/post.qmd` — starting point for a new entry
 
 ## Adding a New Post
 
-1. Copy a template from `_templates/` into `posts/`
-2. Rename the file (kebab-case: `my-post-title.qmd`)
-3. Set `draft: false` when ready to publish
-4. Push to `main` — GitHub Actions builds and deploys automatically
-
-## Design
-
-Styling lives in `styles.css`. Run `quarto preview` to verify changes locally before pushing.
+1. Copy `_templates/post.qmd` into `posts/`
+2. Rename it in kebab-case: `what-i-built.qmd`
+3. Set `date:` to the month of the build (`"2026-09-01"`). Day is ignored, it just orders the list.
+4. Put any images next to the `.qmd` in `posts/` and reference them by filename
+5. Remove `draft: true`
+6. Run `quarto preview` to check it locally
+7. Push to `main` — GitHub Actions builds and deploys automatically

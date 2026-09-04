@@ -1,19 +1,56 @@
 /* ============================================
-   Analytics Gym — Japanese Minimalism (間 Ma)
-   Single source of truth: STYLING.md
+   Build Journal — Japanese Minimalism (間 Ma)
+   Single source of truth for all site styling.
    ============================================ */
 
 :root {
   --bg: #FAFAF8;
   --text: #111111;
-  --accent: #6B3410;
-  --muted: #5A5A55;
-  --border: #C8C6C1;
-  --code-bg: #F5F4F0;
-  --font-heading: 'Cormorant Garamond', serif;
-  --font-body: 'IBM Plex Sans', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
+  --accent: #5C2C0D;      /* 11.0:1 on --bg */
+  --muted: #4A4A46;       /*  8.5:1 on --bg */
+  --border: #B4B2AC;
+  --rule: #D2D0CB;        /* hairlines only, never text */
+  --code-bg: #F2F1ED;
+  /* Source Serif 4 replaces Cormorant Garamond: same literary tone, far
+     sturdier strokes. Cormorant's hairline serifs disappear for low-vision
+     readers. Revert by swapping this one line (and the font link in
+     _quarto.yml). */
+  --font-heading: 'Source Serif 4', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
   --content-width: 720px;
+}
+
+/* --- Accessibility --- */
+
+/* Visible keyboard focus everywhere. The default outline is nearly invisible
+   against this background. */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--accent) !important;
+  outline-offset: 3px !important;
+  border-radius: 2px;
+}
+
+/* Honor the reader's OS-level high-contrast setting */
+@media (prefers-contrast: more) {
+  :root {
+    --muted: #2B2B28;
+    --border: #7A7873;
+    --rule: #9A9893;
+    --accent: #4A2309;
+  }
+  a { text-decoration-thickness: 2px !important; }
+  img { border-color: var(--border) !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* --- Base --- */
@@ -22,7 +59,7 @@ body {
   color: var(--text) !important;
   font-family: var(--font-body) !important;
   font-weight: 400 !important;
-  font-size: 18px !important;
+  font-size: 1.1875rem !important;  /* rem, not px, so browser font-size prefs apply */
   line-height: 1.75 !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -38,14 +75,12 @@ p, li { color: var(--text) !important; font-weight: 400 !important; }
   padding: 1.5rem 2rem 5rem 2rem !important;
 }
 
+/* No TOC column anywhere, so the reading column is centered on every page */
 main.content {
   max-width: var(--content-width) !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
-
-/* Listing pages don't have a TOC column — center the body */
-body.quarto-listing-page main.content { margin-left: auto !important; margin-right: auto !important; }
 
 .quarto-title-block,
 .quarto-title,
@@ -56,8 +91,11 @@ header#title-block-header {
 
 #title-block-header .quarto-title,
 .quarto-title-block .quarto-title {
-  margin-bottom: 2rem !important;
+  margin-bottom: 0.45rem !important;
 }
+#title-block-header h1.title { margin-bottom: 0 !important; text-wrap: balance; }
+#title-block-header:empty { display: none !important; }
+#title-block-header:not(:empty) { margin-bottom: 2.5rem !important; padding-top: 2.5rem !important; }
 
 /* Hide the .subtitle if empty / remove extra meta */
 .quarto-title-meta { display: none !important; }
@@ -65,15 +103,21 @@ header#title-block-header {
 /* --- Headings --- */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading) !important;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
   color: var(--text) !important;
   letter-spacing: 0.01em;
   line-height: 1.25;
   text-align: left !important;
 }
-h1, .title { font-size: 2.4rem !important; margin-bottom: 1rem !important; }
-h2 { font-size: 1.7rem !important; margin-top: 3rem !important; margin-bottom: 1rem !important; }
-h3 { font-size: 1.3rem !important; margin-top: 2.25rem !important; margin-bottom: 0.6rem !important; }
+h1, .title { font-size: 2.3rem !important; font-weight: 700 !important; margin-bottom: 1rem !important; letter-spacing: -0.005em; }
+h2 {
+  font-size: 1.7rem !important;
+  margin-top: 3.5rem !important;
+  margin-bottom: 1.1rem !important;
+  padding-top: 1.1rem !important;
+  border-top: 1px solid var(--rule) !important;
+}
+h3 { font-size: 1.3rem !important; margin-top: 2.5rem !important; margin-bottom: 0.7rem !important; }
 h4, h5, h6 { font-size: 1.05rem !important; margin-top: 1.75rem !important; margin-bottom: 0.4rem !important; }
 
 p { margin-bottom: 1.4rem !important; }
@@ -110,11 +154,12 @@ pre {
   border-radius: 0 !important;
   padding: 1.1rem !important;
   font-family: var(--font-mono) !important;
-  font-size: 0.9rem !important;
+  font-size: 0.95rem !important;
+  line-height: 1.6 !important;
   overflow-x: auto;
   box-shadow: none !important;
 }
-code { font-family: var(--font-mono) !important; font-size: 0.9em !important; }
+code { font-family: var(--font-mono) !important; font-size: 0.925em !important; }
 p code, li code {
   background-color: var(--code-bg) !important;
   padding: 0.1em 0.35em !important;
@@ -123,139 +168,136 @@ p code, li code {
 }
 
 /* --- Lists --- */
-ul, ol { padding-left: 1.5rem !important; }
-li { margin-bottom: 0.5rem !important; }
+ul, ol { padding-left: 1.5rem !important; margin-bottom: 1.6rem !important; }
+li { margin-bottom: 0.85rem !important; padding-left: 0.2rem !important; }
+li:last-child { margin-bottom: 0 !important; }
+li > p { margin-bottom: 0.6rem !important; }
 ul li::marker { color: var(--muted) !important; }
+ol li::marker { color: var(--muted) !important; font-variant-numeric: tabular-nums; }
+/* Nested lists breathe less than top-level ones */
+li ul, li ol { margin-top: 0.6rem !important; margin-bottom: 0.6rem !important; }
+
+/* --- Definition lists (the app inventory) --- */
+dl {
+  margin: 2rem 0 !important;
+  display: block !important;
+}
+dl dt {
+  font-family: var(--font-body) !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  color: var(--text) !important;
+  line-height: 1.4 !important;
+  margin-top: 1.5rem !important;
+  padding-top: 1.5rem !important;
+  border-top: 1px solid var(--rule) !important;
+}
+dl dt:first-of-type { margin-top: 0 !important; padding-top: 0 !important; border-top: none !important; }
+dl dd {
+  margin: 0.35rem 0 0 0 !important;
+  padding: 0 !important;
+  color: var(--muted) !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+}
+dl dd > p { margin: 0 !important; }
 
 /* --- Rule --- */
-hr { border: none !important; border-top: 1px solid var(--border) !important; margin: 3rem 0 !important; }
+hr { border: none !important; border-top: 1px solid var(--rule) !important; margin: 3rem 0 !important; }
 
-/* --- Images --- */
+/* --- Images & figures --- */
 img {
   max-width: 100% !important;
-  border: none !important;
+  height: auto !important;
+  border: 1px solid var(--border) !important;
   border-radius: 0 !important;
-  margin: 2rem 0 !important;
+  margin: 0 !important;
   box-shadow: none !important;
+  display: block;
+}
+figure, .quarto-figure {
+  margin: 2.75rem 0 !important;
+  text-align: left !important;
+}
+figure figcaption, figcaption {
+  font-family: var(--font-body) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  color: var(--muted) !important;
+  text-align: left !important;
+  margin-top: 0.65rem !important;
 }
 
-/* --- Site header (centered title + tabs) --- */
+/* --- Site header (landing page only, single line) --- */
 .site-header {
   text-align: center;
-  padding: 0.15rem 1.5rem 0.65rem 1.5rem;
+  padding: 0.15rem 1.5rem 0.9rem 1.5rem;
   background-color: var(--bg);
   border-bottom: 1px solid var(--border);
-  margin-bottom: 1.15rem;
+  margin-bottom: 1.75rem;
 }
 .site-title {
   display: inline-block;
+  color: var(--text) !important;
+  text-decoration: none !important;
+}
+.site-name {
+  display: block;
   font-family: var(--font-heading) !important;
-  font-weight: 300;
-  font-size: 1.65rem;
-  letter-spacing: 0.02em;
+  font-weight: 700;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
   color: var(--text) !important;
-  text-decoration: none !important;
-  line-height: 1.1;
-  margin-bottom: 0.65rem;
 }
-.site-title:hover { color: var(--accent) !important; }
-.site-nav {
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-}
-.site-nav a {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 0.85rem;
-  color: var(--muted) !important;
-  text-decoration: none !important;
-  padding: 0.25rem 0;
-  border-bottom: 1px solid transparent;
-  white-space: nowrap;
-}
-.site-nav a:hover { color: var(--text) !important; }
-.site-nav a.active {
-  color: var(--accent) !important;
-  border-bottom-color: var(--accent);
-}
-
-/* Kill any residual Quarto navbar */
-#quarto-header, .navbar { display: none !important; }
-
-/* Remove top padding that assumed fixed navbar */
-body.nav-fixed { padding-top: 0 !important; }
-#quarto-content { padding-top: 0 !important; }
-
-/* Hide empty title block on listing pages */
-body.quarto-listing-page #title-block-header { display: none !important; }
-
-/* Hide brand/title — user removed site branding */
-.navbar-brand,
-.navbar-title,
-.navbar-brand-container { display: none !important; }
-
-.navbar-nav { gap: 0.5rem; }
-
-.navbar-nav .nav-link {
+.site-subtitle {
+  display: block;
   font-family: var(--font-body) !important;
-  font-weight: 400 !important;
-  font-size: 1rem !important;
-  color: var(--text) !important;
-  text-decoration: none !important;
-  padding: 0.25rem 0.9rem !important;
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: var(--muted) !important;
+  margin-top: 0.4rem;
 }
-.navbar-nav .nav-link:hover,
-.navbar-nav .nav-link.active { color: var(--accent) !important; text-decoration: none !important; }
+.site-title:hover .site-name,
+.site-title:hover .site-subtitle { color: var(--accent) !important; }
+
+#quarto-content { padding-top: 0 !important; }
 
 /* --- Listing --- */
 .quarto-listing { margin-top: 0 !important; }
 
-/* Flatten Quarto's default two-column post layout */
+/* Flatten Quarto's two-column post layout, and stack date above title.
+   Quarto emits .body (title) before .metadata (date), so reverse the flow. */
 .quarto-post,
 .quarto-listing .quarto-post.image-right {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column-reverse !important;
   grid-template-columns: none !important;
-  padding: 0 !important;
+  gap: 0.3rem !important;          /* the only thing between date and title */
+  row-gap: 0.3rem !important;
+  column-gap: 0 !important;
+  padding: 2.1rem 0 !important;
   border-bottom: 1px solid var(--border) !important;
-  padding-top: 1.75rem !important;
-  padding-bottom: 1.75rem !important;
 }
-.quarto-post .body { padding: 0 !important; }
-.quarto-post .metadata,
+.quarto-listing .quarto-post:first-child { padding-top: 0.5rem !important; }
+.quarto-post .body { padding: 0 !important; margin: 0 !important; }
+.quarto-post .metadata { padding: 0 !important; margin: 0 !important; }
+.quarto-post .metadata a { text-decoration: none !important; }
 .quarto-post .thumbnail { display: none !important; }
-
-.quarto-listing .card,
-.listing-item,
-.quarto-grid-item {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
-.quarto-listing .list-group-item,
-.quarto-listing-default .list-group-item {
-  border: none !important;
-  border-bottom: 1px solid var(--border) !important;
-  border-radius: 0 !important;
-  padding: 1.75rem 0 !important;
-  background: transparent !important;
-  text-align: left !important;
-}
-
-.quarto-listing-default .list-group-item:first-child { padding-top: 1rem !important; }
 
 .listing-title,
 .quarto-listing .listing-title {
   font-family: var(--font-heading) !important;
-  font-weight: 400 !important;
-  font-size: 1.7rem !important;
+  font-weight: 600 !important;
+  font-size: 1.5rem !important;
   color: var(--text) !important;
-  margin: 0 0 0.4rem 0 !important;
+  margin: 0 !important;
   text-align: left !important;
   line-height: 1.25 !important;
+  text-wrap: balance;
 }
 .listing-title a,
 .listing-title a:visited,
@@ -265,118 +307,93 @@ body.quarto-listing-page #title-block-header { display: none !important; }
 }
 .listing-title a:hover { color: var(--accent) !important; text-decoration: none !important; }
 
-/* Post-page category block (under post title) — plain text, no box */
-.quarto-categories,
-.quarto-title .quarto-categories {
-  margin-top: 0.25rem !important;
-  margin-bottom: 1.5rem !important;
+/* --- Listing date (month + year, above the title) --- */
+.quarto-listing .listing-date {
   display: block !important;
-}
-.quarto-category,
-.quarto-categories .quarto-category {
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
   padding: 0 !important;
-  margin: 0 0.75rem 0 0 !important;
-  font-family: var(--font-body) !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
-  color: var(--muted) !important;
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  display: inline !important;
-}
-
-/* Kill Quarto's default "badge" look for categories */
-.listing-category,
-.quarto-listing .listing-category {
-  display: inline !important;
-  font-family: var(--font-body) !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
-  color: var(--muted) !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  margin: 0 0.75rem 0 0 !important;
-  text-transform: none !important;
-  letter-spacing: 0 !important;
-  cursor: pointer;
-}
-.listing-category:hover { color: var(--accent) !important; }
-.listing-categories { margin-top: 0 !important; }
-
-/* Hide the category-filter sidebar entirely on listings */
-.quarto-listing-category,
-.quarto-listing-category-title,
-div[class*="quarto-listing-category"] { display: none !important; }
-
-/* Hide search icon in navbar */
-.quarto-search,
-.aa-Autocomplete,
-.nav-item.compact { display: none !important; }
-
-/* (kept for fallback if re-enabled) */
-.quarto-listing-category-title--fallback {
-  font-family: var(--font-body) !important;
-  font-weight: 400 !important;
-  font-size: 0.8rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
-  color: var(--muted) !important;
-  margin-bottom: 0.75rem !important;
-}
-.quarto-listing-category .category {
-  font-family: var(--font-body) !important;
-  font-weight: 400 !important;
+  font-family: var(--font-mono) !important;
   font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
   color: var(--muted) !important;
-  background: transparent !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0.15rem 0 !important;
-  box-shadow: none !important;
-  display: block;
-  cursor: pointer;
+  margin: 0 !important;
 }
-.quarto-listing-category .category:hover,
-.quarto-listing-category .category.active {
+
+/* --- Post page: month + year under the title --- */
+.quarto-title-meta { display: block !important; }
+.quarto-title-meta-heading { display: none !important; }
+.quarto-title-meta-contents,
+.quarto-title-meta .quarto-title-meta-contents p {
+  font-family: var(--font-mono) !important;
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  color: var(--muted) !important;
+  margin: 0 !important;
+}
+#title-block-header.quarto-title-block.default .quarto-title-meta {
+  grid-template-columns: none !important;
+  display: block !important;
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+}
+
+/* --- Post footer (back to the journal) ---
+   Injected after </main>, outside #quarto-content, so it carries its own
+   gutters. Width = content width + the container's 2rem side padding, so the
+   link and rule line up with the reading column above. */
+.post-footer a::before { content: "\2190\00a0"; }
+.post-footer {
+  max-width: calc(var(--content-width) + 4rem);
+  margin: 0 auto 5rem auto;
+  padding: 1.5rem 2rem 0 2rem;
+  box-sizing: border-box;
+  border-top: 1px solid var(--border);
+}
+.post-footer a {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
   color: var(--accent) !important;
-  background: transparent !important;
+  text-decoration: none !important;
 }
-
-/* Hide dates */
-.listing-date,
-.quarto-listing .listing-date,
-.metadata .date,
-.article-date { display: none !important; }
-
-/* --- TOC: fully hidden --- */
-#quarto-margin-sidebar,
-.margin-sidebar,
-nav[role="doc-toc"],
-.sidebar.margin-sidebar,
-#TOC { display: none !important; }
+.post-footer a:hover { color: var(--accent) !important; }
 
 /* --- Tables --- */
-table { border-collapse: collapse !important; width: 100% !important; margin: 2rem 0 !important; }
-th, td { border: 1px solid var(--border) !important; padding: 0.65rem 0.9rem !important; font-weight: 400 !important; text-align: left !important; }
-th { font-weight: 600 !important; background: transparent !important; }
+table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 2.25rem 0 !important;
+  font-size: 1rem !important;
+}
+th, td {
+  border: none !important;
+  border-bottom: 1px solid var(--rule) !important;
+  padding: 0.7rem 0.9rem 0.7rem 0 !important;
+  font-weight: 400 !important;
+  text-align: left !important;
+  vertical-align: top !important;
+}
+th { font-weight: 600 !important; background: transparent !important; border-bottom: 1px solid var(--text) !important; }
+/* A header row with no text in it (key/value tables) should not take up space */
+thead:has(th:empty) { display: none !important; }
+tbody tr:last-child td { border-bottom: none !important; }
+/* Right-align the value column in two-column key/value tables */
+table td:last-child:not(:first-child) { color: var(--text) !important; }
 
-/* --- Strip Quarto decorations --- */
-.callout, .card, .card-body, .card-header, .card-footer {
+/* --- Callouts (unused today, kept so a future post inherits the design) --- */
+.callout {
   background: transparent !important;
   border: 1px solid var(--border) !important;
   border-radius: 0 !important;
   box-shadow: none !important;
 }
-.nav-footer { display: none !important; }
 
 /* --- Responsive --- */
 @media (max-width: 768px) {
-  body { font-size: 16.5px !important; line-height: 1.7 !important; }
+  body { font-size: 1.0625rem !important; line-height: 1.7 !important; }
 
   #quarto-content,
   main.content,
@@ -394,21 +411,17 @@ th { font-weight: 600 !important; background: transparent !important; }
   .quarto-title-block .quarto-title { margin-bottom: 1.25rem !important; }
 
   .listing-title,
-  .quarto-listing .listing-title { font-size: 1.3rem !important; line-height: 1.3 !important; }
-  .quarto-listing .list-group-item,
-  .quarto-listing-default .list-group-item { padding: 1.25rem 0 !important; }
+  .quarto-listing .listing-title { font-size: 1.25rem !important; line-height: 1.3 !important; }
+  .quarto-post { padding: 1.6rem 0 !important; }
 
   .site-header {
     padding: 1.5rem 1rem 1rem;
     margin-bottom: 1.5rem;
   }
-  .site-title {
-    font-size: 1.9rem;
-    margin-bottom: 0.85rem;
-    white-space: nowrap;
-  }
-  .site-nav { gap: 1.5rem; }
-  .site-nav a { font-size: 0.95rem; }
+  .site-name { font-size: 1.6rem; }
+  .site-subtitle { font-size: 0.9rem; }
+
+  .post-footer { max-width: 100%; padding: 1.25rem 1.1rem 0 1.1rem; margin-bottom: 2.5rem; }
 
   pre { padding: 0.85rem !important; font-size: 0.82rem !important; }
   blockquote { margin: 1.25rem 0 !important; padding-left: 1rem !important; }
@@ -421,11 +434,11 @@ th { font-weight: 600 !important; background: transparent !important; }
 
 @media (max-width: 420px) {
   .site-header { padding: 1.25rem 0.75rem 0.85rem; margin-bottom: 1.25rem; }
-  .site-title { font-size: 1.7rem; margin-bottom: 0.75rem; }
-  .site-nav { gap: 1.15rem; }
-  .site-nav a { font-size: 0.9rem; }
+  .site-name { font-size: 1.45rem; }
+  .site-subtitle { font-size: 0.875rem; }
 
   #quarto-content, main.content, .page-columns { padding: 0.25rem 1rem 2rem !important; }
+  .post-footer { padding: 1.25rem 1rem 0 1rem; }
   h1, .title { font-size: 1.55rem !important; }
   .listing-title, .quarto-listing .listing-title { font-size: 1.2rem !important; }
 }

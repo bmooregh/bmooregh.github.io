@@ -1,1 +1,3 @@
 toc: false
+date-format: "MMMM YYYY"
+include-after-body: ../_includes/post-footer.html

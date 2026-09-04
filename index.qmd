@@ -1,14 +1,14 @@
 ---
 title: ""
-pagetitle: "Mental Models"
+pagetitle: "Learning, Decision, Analytics Tools"  # Quarto appends " – Build Journal"
 listing:
-  id: mental-models-listing
+  id: journal-listing
   contents: posts
-  sort: "title asc"
+  sort: "date desc"
   categories: false
   type: default
-  fields: [title, categories]
-  include:
-    categories: "Mental Model"
+  fields: [date, title]
+  date-format: "MMM YYYY"
 page-layout: article
+include-before-body: _includes/header.html
 ---
