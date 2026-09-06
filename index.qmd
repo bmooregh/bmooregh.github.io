@@ -1,6 +1,6 @@
 ---
 title: ""
-pagetitle: "Learning & Decision Tools"  # Quarto appends " – Build Journal"
+pagetitle: "Learning, Decision, Analytics Tools"  # Quarto appends " – Build Journal"
 listing:
   id: journal-listing
   contents: posts

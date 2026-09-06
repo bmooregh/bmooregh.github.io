@@ -2,7 +2,7 @@
 
 ## Site Purpose
 
-A build journal. Notes on the learning and decision tools I build: what I shipped, the forks in the road, what broke, what it produced, and what it opens up next.
+A build journal. Notes on the learning, decision, and analytics tools I build: what I shipped, the forks in the road, what broke, what it produced, and what it opens up next.
 
 The audience is future me. Kept public so the work is reusable, not just describable.
 
@@ -38,7 +38,7 @@ If a content request drifts from this — not anchored to a real build, no first
 ## Layout & Styling
 
 - All visual styling lives in `styles.css` — single source of truth
-- `_includes/header.html` renders the single-line site header (`Build Journal` over `Learning & Decision Tools`). It is wired into `index.qmd` only, via `include-before-body` in that file's front matter. Post pages deliberately have no site header, so the post title leads.
+- `_includes/header.html` renders the single-line site header (`Build Journal` over `Learning, Decision, Analytics Tools`). It is wired into `index.qmd` only, via `include-before-body` in that file's front matter. Post pages deliberately have no site header, so the post title leads.
 - `_includes/post-footer.html` gives post pages a back-link to the landing page, wired via `include-after-body` in `posts/_metadata.yml`. It is injected after `</main>`, outside `#quarto-content`, so it carries its own gutters.
 - Default Quarto navbar and TOC are hidden via CSS
 - Responsive breakpoints at 768px and 420px — verify both desktop and mobile when making layout changes

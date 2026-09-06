@@ -7,7 +7,7 @@ project:
 
 website:
   title: "Build Journal"
-  description: "Notes on the learning & decision tools I build."
+  description: "Notes on the learning, decision, and analytics tools I build."
   search: false
 
 format:
