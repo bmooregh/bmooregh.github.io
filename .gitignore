@@ -1,7 +1,7 @@
 # Quarto build output and cache
 _site/
 docs/
-.quarto/
+/.quarto/
 **/*.quarto_ipynb
 
 # Python / notebooks
@@ -11,6 +11,3 @@ __pycache__/
 
 # macOS
 .DS_Store
-
-
-/.quarto/
