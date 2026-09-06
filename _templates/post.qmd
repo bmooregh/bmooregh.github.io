@@ -1,11 +1,10 @@
 ---
 title: "What I Built"
 date: "YYYY-MM-01"
-draft: true
 ---
 
 <!-- date drives sort order and the month/year shown on the landing page. Day is ignored. -->
-<!-- Remove draft: true when ready to publish. -->
+<!-- Drafts live in the private build_journal_wip repo. This file is the published form. -->
 
 *Stack: ...*
 

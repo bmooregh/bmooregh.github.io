@@ -43,12 +43,44 @@ If a content request drifts from this — not anchored to a real build, no first
 - Default Quarto navbar and TOC are hidden via CSS
 - Responsive breakpoints at 768px and 420px — verify both desktop and mobile when making layout changes
 
+## Drafting
+
+Work in progress lives in a **separate private repo**, `bmooregh/build_journal_wip`
+(`~/Documents/GitHub/build_journal/build_journal_wip`). Nothing half-finished belongs in this
+repo, which is public.
+
+Why not draft here behind `draft: true`: that flag hides a post from the **rendered site** only.
+Quarto emits a 90-byte empty `<html></html>` stub with the content stripped, but the `.qmd`
+source stays tracked and becomes public the moment it is pushed, along with any image beside it.
+
+The WIP repo is private, so drafts stay unreadable, and pushing there backs them up.
+
+**Layout in the WIP repo:** one folder per post, holding the markdown and its images.
+
+```
+build_journal_wip/
+  apps_script_post/
+    internal_data_apps_claude_and_app_scripts.md
+    intranet.png
+```
+
+**Promotion**, when the draft is done:
+
+1. Copy the markdown into `posts/<kebab-case-slug>.qmd` in this repo
+2. Copy its images into `posts/` alongside the `.qmd`, referenced by bare filename
+3. Convert the `# Title` heading and any date line into frontmatter (`title`, `date`)
+4. Give every image a `fig-alt`. Quarto's caption syntax alone produces no `alt` attribute.
+5. `quarto render`, confirm the post appears in the listing, then push
+6. Delete the folder from the WIP repo and push there, so one draft never exists in two places
+
+The `build-post` skill performs all six steps, including the checks.
+
 ## Adding Content
 
-1. Copy `_templates/post.qmd` into `posts/`
-2. Rename in kebab-case
-3. Set `date` to the month of the build, drop `draft: true` when ready
-4. Write
+1. Copy `_templates/post.qmd` into `posts/drafts/` and rename in kebab-case
+2. Set `date` to the month of the build
+3. Write, previewing with `quarto preview`
+4. Publish: move the `.qmd` and its images from `posts/drafts/` up into `posts/`
 5. Push to main — GitHub Actions builds and deploys automatically
 
 ## Local Preview
