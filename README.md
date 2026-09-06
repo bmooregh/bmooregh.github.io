@@ -1,8 +1,8 @@
 # Build Journal
 
-Learning, Decision, Analytics Tools.
+Learning & Decision Tools.
 
-Notes on the learning, decision, and analytics tools I build: what I shipped, the forks in the road, what broke, and what it opened up. The audience is future me. Kept public so the work is reusable, not just describable.
+Notes on the learning and decision tools I build: what I shipped, the forks in the road, what broke, and what it opened up. The audience is future me. Kept public so the work is reusable, not just describable.
 
 Built with Quarto, deployed to GitHub Pages.
 
